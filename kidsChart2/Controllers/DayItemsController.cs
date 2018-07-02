@@ -32,7 +32,7 @@ namespace kidsChart2.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return View(await _context.DayItem.OrderBy(item => item.DueBy).ToListAsync());
+            return View(await _context.DayItem.Where(dayItem => dayItem.ItemDay == DateTime.Today).OrderBy(item => item.DueBy).ToListAsync());
         }
 
         // GET: DayItems/Details/5
