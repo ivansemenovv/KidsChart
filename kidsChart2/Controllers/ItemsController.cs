@@ -140,9 +140,9 @@ namespace kidsChart2.Controllers
         // POST: Items/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int itemId)
         {
-            var items = await _context.Items.FindAsync(id);
+            var items = await _context.Items.FindAsync(itemId);
             _context.Items.Remove(items);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

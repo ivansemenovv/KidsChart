@@ -46,6 +46,13 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<div style="padding-top:50px">
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ItemId" />
+        <input type="submit" value="Delete" class="btn btn-default" />
+    </form>
+</div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
