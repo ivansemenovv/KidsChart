@@ -21,13 +21,13 @@ namespace kidsChart2.Controllers
         // GET: DayItems
         public async Task<IActionResult> Index()
         {
-            var todayList = await _context.DayItem.ToListAsync();
+            var todayList = await _context.DayItem.Where(dayItem => dayItem.ItemDay == DateTime.Today).ToListAsync();
             if (todayList.Count == 0)
             {
-                var items = await _context.Items.ToListAsync();
+                var items = await _context.Items.Where(item => item.IsDaily || (!item.IsDaily && item.SpecificDate == DateTime.Today)).ToListAsync();
                 foreach (var item in items)
                 {
-                    _context.DayItem.Add(new DayItem() { Name = item.Name, DueBy = item.DueBy, IsDone = false });
+                    _context.DayItem.Add(new DayItem() { Name = item.Name, DueBy = item.DueBy, IsDone = false, ItemDay = DateTime.Today });
                 }
                 await _context.SaveChangesAsync();
             }

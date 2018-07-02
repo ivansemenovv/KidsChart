@@ -12,6 +12,8 @@ namespace kidsChart2.Models
         [Key]
         public int ID { get; set; }
 
+        public DateTime ItemDay { get; set; }
+
         [Display(Name = "Название")]
         public string Name { get; set; }
 
