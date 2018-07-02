@@ -21,7 +21,7 @@ namespace kidsChart2.Controllers
         // GET: Items
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Items.ToListAsync());
+            return View(await _context.Items.OrderBy(item => item.DueBy).ToListAsync());
         }
 
         // GET: Items/Details/5
