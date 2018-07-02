@@ -57,17 +57,10 @@ namespace kidsChart2.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Items newItems = new Items()
-                //{
-                //    Name = items.Name,
-                //    DueBy = items.DueBy,
-                //    IsDaily = items.IsDaily,
-                //    ItemId = items.ItemId,
-                //    SpecificDate = items.SpecificDate.HasValue ?
-                //            new DateTime(items.SpecificDate.Value.Year, items.SpecificDate.Value.Month, items.SpecificDate.Value.Day) :
-                //            items.SpecificDate
-                //};
-
+                if(items.IsDaily)
+                {
+                    _context.Add(new DayItem() { Name = items.Name, DueBy = items.DueBy, IsDone = false, ItemDay = DateTime.Today });
+                }
                 _context.Add(items);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -107,16 +100,6 @@ namespace kidsChart2.Controllers
             {
                 try
                 {
-                    //Items newItems = new Items()
-                    //{
-                    //    Name = items.Name,
-                    //    DueBy = items.DueBy,
-                    //    IsDaily = items.IsDaily,
-                    //    ItemId = items.ItemId,
-                    //    SpecificDate = items.SpecificDate.HasValue ?
-                    //        new DateTime(items.SpecificDate.Value.Year, items.SpecificDate.Value.Month, items.SpecificDate.Value.Day) :
-                    //        items.SpecificDate
-                    //};
                     _context.Update(items);
                     await _context.SaveChangesAsync();
                 }
