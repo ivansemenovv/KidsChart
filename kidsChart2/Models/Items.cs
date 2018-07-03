@@ -25,5 +25,9 @@ namespace kidsChart2.Models
         [Display(Name = "Только в эту дату")]
         [DataType(DataType.Date)]
         public DateTime? SpecificDate { get; set; }
+
+        [Display(Name = "Иконка")]
+        [DataType(DataType.ImageUrl)]
+        public string IconPath { get; set; }
     }
 }

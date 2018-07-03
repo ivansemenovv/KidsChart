@@ -27,7 +27,7 @@ namespace kidsChart2.Controllers
                 var items = await _context.Items.Where(item => item.IsDaily || (!item.IsDaily && item.SpecificDate == DateTime.Today)).ToListAsync();
                 foreach (var item in items)
                 {
-                    _context.DayItem.Add(new DayItem() { Name = item.Name, DueBy = item.DueBy, IsDone = false, ItemDay = DateTime.Today });
+                    _context.DayItem.Add(new DayItem() { Name = item.Name, DueBy = item.DueBy, IsDone = false, ItemDay = DateTime.Today, IconPath = item.IconPath });
                 }
                 await _context.SaveChangesAsync();
             }

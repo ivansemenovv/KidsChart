@@ -12,14 +12,15 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDone)
-            </th>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DueBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDone)
             </th>
             <th></th>
         </tr>
@@ -27,6 +28,16 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                <img src="@item.IconPath" width="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueBy)
+            </td>
+
             <td>
                 @if (item.IsDone)
                 {
@@ -40,16 +51,10 @@
                         <img src="~/images/sad.jpg" width="50" height="50">
                     </a>
                 }
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
             </td>
+
             <td>
-                @Html.DisplayFor(modelItem => item.DueBy)
-            </td>
-            
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
+                <a asp-action="Edit" asp-route-id="@item.ID">...</a>
             </td>
         </tr>
 }

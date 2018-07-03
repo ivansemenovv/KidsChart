@@ -23,5 +23,9 @@ namespace kidsChart2.Models
         [Display(Name = "Время")]
         [DataType(DataType.Time)]
         public DateTime? DueBy { get; set; }
+
+        [Display(Name = "Иконка")]
+        [DataType(DataType.ImageUrl)]
+        public string IconPath { get; set; }
     }
 }
