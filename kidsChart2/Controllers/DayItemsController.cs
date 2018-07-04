@@ -21,18 +21,18 @@ namespace kidsChart2.Controllers
         // GET: DayItems
         public async Task<IActionResult> Index()
         {
-            var todayList = await _context.DayItem.Where(dayItem => dayItem.ItemDay == DateTime.Today).ToListAsync();
+            var todayList = await _context.DayItems.Where(dayItem => dayItem.ItemDay == DateTime.Today).ToListAsync();
             if (todayList.Count == 0)
             {
                 var items = await _context.Items.Where(item => item.IsDaily || (!item.IsDaily && item.SpecificDate == DateTime.Today)).ToListAsync();
                 foreach (var item in items)
                 {
-                    _context.DayItem.Add(new DayItem() { Name = item.Name, DueBy = item.DueBy, IsDone = false, ItemDay = DateTime.Today, IconPath = item.IconPath });
+                    _context.DayItems.Add(new DayItem() { Name = item.Name, DueBy = item.DueBy, IsDone = false, ItemDay = DateTime.Today, IconPath = item.IconPath });
                 }
                 await _context.SaveChangesAsync();
             }
 
-            return View(await _context.DayItem.Where(dayItem => dayItem.ItemDay == DateTime.Today).OrderBy(item => item.DueBy).ToListAsync());
+            return View(await _context.DayItems.Where(dayItem => dayItem.ItemDay == DateTime.Today).OrderBy(item => item.DueBy).ToListAsync());
         }
 
         // GET: DayItems/Details/5
@@ -43,7 +43,7 @@ namespace kidsChart2.Controllers
                 return NotFound();
             }
 
-            var dayItem = await _context.DayItem
+            var dayItem = await _context.DayItems
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (dayItem == null)
             {
@@ -83,7 +83,7 @@ namespace kidsChart2.Controllers
                 return NotFound();
             }
 
-            var dayItem = await _context.DayItem.FindAsync(id);
+            var dayItem = await _context.DayItems.FindAsync(id);
             if (dayItem == null)
             {
                 return NotFound();
@@ -134,7 +134,7 @@ namespace kidsChart2.Controllers
                 return NotFound();
             }
 
-            var dayItem = await _context.DayItem
+            var dayItem = await _context.DayItems
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (dayItem == null)
             {
@@ -149,15 +149,15 @@ namespace kidsChart2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var dayItem = await _context.DayItem.FindAsync(id);
-            _context.DayItem.Remove(dayItem);
+            var dayItem = await _context.DayItems.FindAsync(id);
+            _context.DayItems.Remove(dayItem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DayItemExists(int id)
         {
-            return _context.DayItem.Any(e => e.ID == id);
+            return _context.DayItems.Any(e => e.ID == id);
         }
 
         // GET: DayItems/Done/5
@@ -168,7 +168,7 @@ namespace kidsChart2.Controllers
                 return NotFound();
             }
 
-            var dayItem = await _context.DayItem.FindAsync(id);
+            var dayItem = await _context.DayItems.FindAsync(id);
             if (dayItem == null)
             {
                 return NotFound();

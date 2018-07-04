@@ -27,6 +27,7 @@ CREATE TABLE [dbo].[DayItem](
 GO
 
 
+
 CREATE TABLE [dbo].[Items](
 	[ItemId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](max) NULL,
@@ -48,4 +49,26 @@ DELETE FROM [dbo].[Items];
 INSERT INTO [dbo].[Items]([Name], [DueBy]) VALUES(N'Почистить зубки', N'2018-07-01 08:00:00.0000000');
 INSERT INTO [dbo].[Items]([Name], [DueBy]) VALUES(N'Почитать', NULL);
 INSERT INTO [dbo].[Items]([Name], [DueBy]) VALUES(N'Почистить зубки', N'2018-07-01 20:00:00.0000000');
+
+
+DROP TABLE [dbo].[HistotyItem];
+GO
+CREATE TABLE [dbo].[HistotyItem](
+	[HistotyItemId] [int] IDENTITY(1,1) NOT NULL,
+	[ItemId] int NOT NULL,
+	[DayItem] [datetime2](7) NOT NULL,
+	[IsDone] [bit] NOT NULL default 0,
+	[IconPath] [nvarchar](255) NULL
+ CONSTRAINT [PK_HistotyItem] PRIMARY KEY CLUSTERED 
+(
+	[HistotyItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] 
+GO
+
+INSERT INTO [dbo].[HistotyItem]([ItemId], [DayItem]) VALUES(1, N'2018-07-04 08:00:00.0000000');
+INSERT INTO [dbo].[HistotyItem]([ItemId], [DayItem]) VALUES(2, N'2018-07-04 08:00:00.0000000');
+INSERT INTO [dbo].[HistotyItem]([ItemId], [DayItem]) VALUES(3, N'2018-07-04 08:00:00.0000000');
+INSERT INTO [dbo].[HistotyItem]([ItemId], [DayItem]) VALUES(8, N'2018-07-04 08:00:00.0000000');
+INSERT INTO [dbo].[HistotyItem]([ItemId], [DayItem]) VALUES(9, N'2018-07-04 08:00:00.0000000');
 

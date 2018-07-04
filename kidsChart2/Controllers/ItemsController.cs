@@ -18,13 +18,13 @@ namespace kidsChart2.Controllers
             _context = context;
         }
 
-        // GET: Items
+        // GET: Item
         public async Task<IActionResult> Index()
         {
             return View(await _context.Items.OrderBy(item => item.DueBy).ToListAsync());
         }
 
-        // GET: Items/Details/5
+        // GET: Item/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,18 +42,18 @@ namespace kidsChart2.Controllers
             return View(items);
         }
 
-        // GET: Items/Create
+        // GET: Item/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Items/Create
+        // POST: Item/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath")] Items items)
+        public async Task<IActionResult> Create([Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath")] Item items)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace kidsChart2.Controllers
             return View(items);
         }
 
-        // GET: Items/Edit/5
+        // GET: Item/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,12 +84,12 @@ namespace kidsChart2.Controllers
             return View(items);
         }
 
-        // POST: Items/Edit/5
+        // POST: Item/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath")] Items items)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath")] Item items)
         {
             if (id != items.ItemId)
             {
@@ -119,7 +119,7 @@ namespace kidsChart2.Controllers
             return View(items);
         }
 
-        // GET: Items/Delete/5
+        // GET: Item/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,7 +137,7 @@ namespace kidsChart2.Controllers
             return View(items);
         }
 
-        // POST: Items/Delete/5
+        // POST: Item/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int itemId)

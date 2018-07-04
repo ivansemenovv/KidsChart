@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace kidsChart2.Models
 {
-    public class Items
+    public class Item
     {
+        public Item()
+
+        {
+            HistotyItems = new HashSet<HistotyItem>();
+        }
+
         [Key]
         public int ItemId { get; set; }
 
@@ -29,5 +35,7 @@ namespace kidsChart2.Models
         [Display(Name = "Иконка")]
         [DataType(DataType.ImageUrl)]
         public string IconPath { get; set; }
+
+        public ICollection<HistotyItem> HistotyItems { get; set; }
     }
 }

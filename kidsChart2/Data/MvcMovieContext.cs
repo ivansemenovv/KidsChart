@@ -14,7 +14,8 @@ namespace kidsChart2.Models
         {
         }
 
-        public DbSet<kidsChart2.Models.DayItem> DayItem { get; set; }
-        public DbSet<kidsChart2.Models.Items> Items { get; set; }
+        public DbSet<kidsChart2.Models.DayItem> DayItems { get; set; }
+        public DbSet<kidsChart2.Models.Item> Items { get; set; }
+        public DbSet<kidsChart2.Models.HistotyItem> HistotyItems { get; set; }
     }
 }
