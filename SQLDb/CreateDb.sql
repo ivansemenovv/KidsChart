@@ -10,6 +10,7 @@ GO
 
 DROP TABLE [dbo].[DayItems];
 DROP TABLE [dbo].[Items];
+DROP TABLE [dbo].[HistoryItems];
 GO
 
 CREATE TABLE [dbo].[DayItems](
@@ -27,7 +28,6 @@ CREATE TABLE [dbo].[DayItems](
 GO
 
 
-
 CREATE TABLE [dbo].[Items](
 	[ItemId] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](max) NULL,
@@ -42,29 +42,37 @@ CREATE TABLE [dbo].[Items](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
-DELETE FROM [dbo].[DayItems];
 
+CREATE TABLE [dbo].[HistoryItems](
+	[HistoryItemId] [int] IDENTITY(1,1) NOT NULL,
+	[ItemId] [int] NOT NULL,
+	[DayItem] [datetime2](7) NOT NULL,
+	[IsDone] [bit] NOT NULL,
+	[IconPath] [nvarchar](255) NULL,
+ CONSTRAINT [PK_HistotyItem] PRIMARY KEY CLUSTERED 
+(
+	[HistoryItemId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[HistoryItems] ADD  DEFAULT ((0)) FOR [IsDone]
+GO
+
+ALTER TABLE [dbo].[HistoryItems]  WITH CHECK ADD  CONSTRAINT [FK_HistoryItems_Items] FOREIGN KEY([ItemId])
+REFERENCES [dbo].[Items] ([ItemId])
+GO
+
+ALTER TABLE [dbo].[HistoryItems] CHECK CONSTRAINT [FK_HistoryItems_Items]
+GO
+
+
+DELETE FROM [dbo].[DayItems];
 DELETE FROM [dbo].[Items];
 
 INSERT INTO [dbo].[Items]([Name], [DueBy]) VALUES(N'Почистить зубки', N'2018-07-01 08:00:00.0000000');
 INSERT INTO [dbo].[Items]([Name], [DueBy]) VALUES(N'Почитать', NULL);
 INSERT INTO [dbo].[Items]([Name], [DueBy]) VALUES(N'Почистить зубки', N'2018-07-01 20:00:00.0000000');
-
-
-DROP TABLE [dbo].[HistoryItems];
-GO
-CREATE TABLE [dbo].[HistoryItems](
-	[HistoryItemId] [int] IDENTITY(1,1) NOT NULL,
-	[ItemId] int NOT NULL,
-	[DayItem] [datetime2](7) NOT NULL,
-	[IsDone] [bit] NOT NULL default 0,
-	[IconPath] [nvarchar](255) NULL
- CONSTRAINT [PK_HistotyItem] PRIMARY KEY CLUSTERED 
-(
-	[HistoryItemId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY] 
-GO
 
 INSERT INTO [dbo].[HistoryItems]([ItemId], [DayItem]) VALUES(1, N'2018-07-04 08:00:00.0000000');
 INSERT INTO [dbo].[HistoryItems]([ItemId], [DayItem]) VALUES(2, N'2018-07-04 08:00:00.0000000');

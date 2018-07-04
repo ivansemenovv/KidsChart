@@ -11,7 +11,7 @@ namespace kidsChart2.Models
         [Key]
         public int HistoryItemId { get; set; }
 
-        //public virtual Item Items { get; set; }
+        public Item Item { get; set; }
 
         [Display(Name = "Сделано")]
         public bool IsDone { get; set; }

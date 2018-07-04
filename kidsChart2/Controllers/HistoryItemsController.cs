@@ -21,7 +21,7 @@ namespace kidsChart2.Controllers
         // GET: HistoryItems
         public async Task<IActionResult> Index()
         {
-            var list = await _context.HistoryItems.ToListAsync();
+            var list = await _context.HistoryItems.Include("Item").ToListAsync();
             return View(list);
         }
 
