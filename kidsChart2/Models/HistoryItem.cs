@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace kidsChart2.Models
 {
-    public class HistotyItem
+    public class HistoryItem
     {
         [Key]
-        public int HistotyItemId { get; set; }
+        public int HistoryItemId { get; set; }
 
-        public virtual Item Items { get; set; }
+        //public virtual Item Items { get; set; }
 
         [Display(Name = "Сделано")]
         public bool IsDone { get; set; }

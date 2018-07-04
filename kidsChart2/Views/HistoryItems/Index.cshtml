@@ -1,0 +1,41 @@
+﻿@model IEnumerable<kidsChart2.Models.HistoryItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IconPath)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IconPath)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HistoryItemId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.HistoryItemId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.HistoryItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

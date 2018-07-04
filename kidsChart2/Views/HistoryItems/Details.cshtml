@@ -1,0 +1,30 @@
+﻿@model kidsChart2.Models.HistoryItem
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HistotyItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDone)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsDone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IconPath)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IconPath)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.HistoryItemId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -12,7 +12,7 @@ namespace kidsChart2.Models
         public Item()
 
         {
-            HistotyItems = new HashSet<HistotyItem>();
+            HistotyItems = new HashSet<HistoryItem>();
         }
 
         [Key]
@@ -36,6 +36,6 @@ namespace kidsChart2.Models
         [DataType(DataType.ImageUrl)]
         public string IconPath { get; set; }
 
-        public ICollection<HistotyItem> HistotyItems { get; set; }
+        public ICollection<HistoryItem> HistotyItems { get; set; }
     }
 }
