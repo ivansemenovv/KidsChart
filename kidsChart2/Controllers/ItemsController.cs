@@ -53,7 +53,7 @@ namespace kidsChart2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath")] Item items)
+        public async Task<IActionResult> Create([Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath,IsGood, IsOneTime")] Item items)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace kidsChart2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath")] Item items)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath,IsGood, IsOneTime")] Item items)
         {
             if (id != items.ItemId)
             {

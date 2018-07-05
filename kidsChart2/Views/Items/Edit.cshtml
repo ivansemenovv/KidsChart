@@ -39,6 +39,16 @@
                 <label asp-for="IconPath" class="control-label"></label>
                 <input asp-for="IconPath" class="form-control" />
             </div>
+            <div class="checkbox">
+                <label>
+                    <input asp-for="IsGood" /> @Html.DisplayNameFor(model => model.IsGood)
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input asp-for="IsOneTime" /> @Html.DisplayNameFor(model => model.IsOneTime)
+                </label>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
