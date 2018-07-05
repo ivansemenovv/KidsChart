@@ -53,19 +53,19 @@ namespace kidsChart2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath,IsGood, IsOneTime")] Item items)
+        public async Task<IActionResult> Create([Bind("ItemId,Name,DueBy,IsDaily,SpecificDate,IconPath,IsGood, IsOneTime")] Item item)
         {
             if (ModelState.IsValid)
             {
-                if(items.IsDaily)
+                _context.Add(item);
+                if (item.IsDaily)
                 {
-                    _context.Add(new DayItem() { Name = items.Name, DueBy = items.DueBy, IsDone = false, ItemDay = DateTime.Today, IconPath = items.IconPath });
+                    _context.HistoryItems.Add(new HistoryItem() { Item = item, DayItem = DateTime.Today });
                 }
-                _context.Add(items);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(items);
+            return View(item);
         }
 
         // GET: Item/Edit/5

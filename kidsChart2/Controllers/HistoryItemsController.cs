@@ -66,7 +66,7 @@ namespace kidsChart2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HistotyItemId,IsDone,IconPath")] HistoryItem histotyItem)
+        public async Task<IActionResult> Create([Bind("HistoryItemId,IsDone,IconPath")] HistoryItem histotyItem)
         {
             if (ModelState.IsValid)
             {
@@ -78,13 +78,8 @@ namespace kidsChart2.Controllers
         }
 
         // GET: HistoryItems/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var histotyItem = await _context.HistoryItems.FindAsync(id);
             if (histotyItem == null)
             {
@@ -98,7 +93,7 @@ namespace kidsChart2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HistotyItemId,IsDone,IconPath")] HistoryItem histotyItem)
+        public async Task<IActionResult> Edit(int id, [Bind("HistoryItemId,IsDone,DayItem")] HistoryItem histotyItem)
         {
             if (id != histotyItem.HistoryItemId)
             {
@@ -149,9 +144,9 @@ namespace kidsChart2.Controllers
         // POST: HistoryItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int HistoryItemId)
         {
-            var histotyItem = await _context.HistoryItems.FindAsync(id);
+            var histotyItem = await _context.HistoryItems.FindAsync(HistoryItemId);
             _context.HistoryItems.Remove(histotyItem);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

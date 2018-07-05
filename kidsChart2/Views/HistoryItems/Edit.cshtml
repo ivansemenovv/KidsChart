@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="HistoryItemId" />
+            <input type="hidden" asp-for="DayItem" />
             <div class="form-group">
                 <div class="checkbox">
                     <label>
@@ -20,11 +21,11 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="IconPath" class="control-label"></label>
                 <input asp-for="IconPath" class="form-control" />
                 <span asp-validation-for="IconPath" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
@@ -34,6 +35,13 @@
 
 <div>
     <a asp-action="Index">Back to List</a>
+</div>
+
+<div style="padding-top:50px">
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="HistoryItemId" />
+        <input type="submit" value="Delete" class="btn btn-default" />
+    </form>
 </div>
 
 @section Scripts {

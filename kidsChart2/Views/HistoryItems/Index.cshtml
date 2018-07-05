@@ -27,7 +27,15 @@
         {
         <tr>
             <td>
-                <img src="@item.Item.IconPath" width="50" />
+                @if (!item.Item.IsGood)
+                {
+                    <img src="@item.Item.IconPath" width="50" />
+                }
+                else
+                {
+                    <img src="@item.Item.IconPath" width="70" />
+
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Item.Name)
@@ -55,9 +63,12 @@
                 {
                     @if (item.Item.IsGood)
                     {
-                        <img src="~/images/thumbsUp.jpg" width="50" height="50">
+                        <img src="~/images/thumbsUp.jpg" width="50">
                     }
                 }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HistoryItemId">...</a>
             </td>
         </tr>
         }
