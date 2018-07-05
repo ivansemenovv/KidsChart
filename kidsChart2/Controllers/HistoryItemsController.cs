@@ -21,7 +21,7 @@ namespace kidsChart2.Controllers
         // GET: HistoryItems
         public async Task<IActionResult> Index()
         {
-            var todayList = await _context.HistoryItems.Include("Item").OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
+            var todayList = await _context.HistoryItems.Include("Item").Where(dayItem => dayItem.DayItem == DateTime.Today).OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
             if(todayList.Count == 0)
             {
                 var items = await _context.Items.Where(item => (item.IsDaily || (!item.IsDaily && item.SpecificDate == DateTime.Today)) && !item.IsOneTime).ToListAsync();
@@ -32,7 +32,7 @@ namespace kidsChart2.Controllers
                 await _context.SaveChangesAsync();
             }
             
-            todayList = await _context.HistoryItems.Include("Item").OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
+            todayList = await _context.HistoryItems.Include("Item").Where(dayItem => dayItem.DayItem == DateTime.Today).OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
             var oneTimeItems = await _context.Items.Where(item => item.IsOneTime).ToListAsync();
             return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems});
         }
