@@ -12,7 +12,7 @@ namespace kidsChart2.Controllers
     {
         public IActionResult Index()
         {
-            return RedirectToAction(nameof(Index), "DayItems");
+            return RedirectToAction(nameof(Index), "HistoryItems");
             //return View();
         }
 
