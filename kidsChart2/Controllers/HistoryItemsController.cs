@@ -21,8 +21,18 @@ namespace kidsChart2.Controllers
         // GET: HistoryItems
         public async Task<IActionResult> Index()
         {
-            var list = await _context.HistoryItems.Include("Item").ToListAsync();
-            return View(list);
+            var todayList = await _context.HistoryItems.Include("Item").OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
+            if(todayList.Count == 0)
+            {
+                var items = await _context.Items.Where(item => (item.IsDaily || (!item.IsDaily && item.SpecificDate == DateTime.Today)) && !item.IsOneTime).ToListAsync();
+                foreach (var item in items)
+                {
+                    _context.HistoryItems.Add(new HistoryItem() { Item = item });
+                }
+                await _context.SaveChangesAsync();
+            }
+            todayList = await _context.HistoryItems.Include("Item").OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
+            return View(todayList);
         }
 
         // GET: HistoryItems/Details/5
@@ -149,5 +159,36 @@ namespace kidsChart2.Controllers
         {
             return _context.HistoryItems.Any(e => e.HistoryItemId == id);
         }
+
+        // GET: DayItems/Done/5
+        public async Task<IActionResult> Done(int id)
+        {
+            var dayItem = await _context.HistoryItems.FindAsync(id);
+            if (dayItem == null)
+            {
+                return NotFound();
+            }
+
+            dayItem.IsDone = !dayItem.IsDone;
+
+            try
+            {
+                _context.Update(dayItem);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!HistotyItemExists(dayItem.HistoryItemId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
