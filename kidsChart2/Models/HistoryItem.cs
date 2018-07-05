@@ -13,6 +13,8 @@ namespace kidsChart2.Models
 
         public Item Item { get; set; }
 
+        public DateTime DayItem { get; set; }
+
         [Display(Name = "Сделано")]
         public bool IsDone { get; set; }
 

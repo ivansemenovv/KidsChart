@@ -1,4 +1,4 @@
-﻿@model IEnumerable<kidsChart2.Models.HistoryItem>
+﻿@model DayActions
 
 @{
     ViewData["Title"] = "Aleks's Chart";
@@ -8,11 +8,11 @@
 <img src="~/images/alex.jpg" width="100" />
 
 <table class="table">
-    <thead>
+    @*<thead>
         <tr>
             <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.Item.Name)
+                @Html.DisplayNameFor(model => model.HistoryItems..Item.Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Item.DueBy)
@@ -21,9 +21,9 @@
                 @Html.DisplayNameFor(model => model.IsDone)
             </th>
         </tr>
-    </thead>
+    </thead>*@
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.HistoryItems)
         {
         <tr>
             <td>
@@ -36,20 +36,39 @@
                 @Html.DisplayFor(modelItem => item.Item.DueBy)
             </td>
             <td>
-                @if (item.IsDone)
+                @if (!item.Item.IsOneTime)
                 {
-                    <a asp-action="Done" asp-route-id="@item.HistoryItemId">
-                        <img src="~/images/BlackGlass.jpg" width="50" height="50">
-                    </a>
-                }
-                else
-                {
-                    <a asp-action="Done" asp-route-id="@item.HistoryItemId">
-                        <img src="~/images/sad.jpg" width="50" height="50">
-                    </a>
+                    @if (item.IsDone)
+                    {
+                        <a asp-action="Done" asp-route-id="@item.HistoryItemId">
+                            <img src="~/images/BlackGlass.jpg" width="50" height="50">
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="Done" asp-route-id="@item.HistoryItemId">
+                            <img src="~/images/sad.jpg" width="50" height="50">
+                        </a>
+                    }
                 }
             </td>
         </tr>
         }
     </tbody>
 </table>
+
+
+    <table align="right" cellpadding="50">
+        <tbody>
+            <tr>
+                @foreach (var oneTimeItem in Model.OneTimeItems)
+                {
+                    <td>
+                        <a asp-action="AddOneTime" asp-route-id="@oneTimeItem.ItemId">
+                            <img src="@oneTimeItem.IconPath" width="50" />
+                        </a>
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
