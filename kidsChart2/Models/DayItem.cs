@@ -27,7 +27,5 @@ namespace kidsChart2.Models
         [Display(Name = "Иконка")]
         [DataType(DataType.ImageUrl)]
         public string IconPath { get; set; }
-
-
     }
 }

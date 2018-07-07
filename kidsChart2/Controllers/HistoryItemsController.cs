@@ -1,11 +1,10 @@
-﻿using System;
+﻿using kidsChart2.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using kidsChart2.Models;
 
 namespace kidsChart2.Controllers
 {
@@ -17,6 +16,13 @@ namespace kidsChart2.Controllers
         {
             _context = context;
         }
+
+        class Pet
+        {
+            public string Name { get; set; }
+            public double Age { get; set; }
+        }
+
 
         // GET: HistoryItems
         public async Task<IActionResult> Index()
@@ -32,9 +38,16 @@ namespace kidsChart2.Controllers
                 await _context.SaveChangesAsync();
             }
             
-            todayList = await _context.HistoryItems.Include("Item").Where(dayItem => dayItem.DayItem == DateTime.Today).OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
+            todayList = await _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.DayItem == DateTime.Today && !dayItem.Item.IsOneTime).
+                OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
             var oneTimeItems = await _context.Items.Where(item => item.IsOneTime).ToListAsync();
-            return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems});
+
+            var oneDayItemsGroups = _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.DayItem == DateTime.Today && dayItem.Item.IsOneTime).
+                GroupBy(dayItem => dayItem.Item).Select(g => new { item = g.Key, count = g.Count() }).ToDictionary(k => k.item, i => i.count);
+
+            return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems, OneDayItemsGroups = oneDayItemsGroups });
         }
 
         // GET: HistoryItems/Details/5

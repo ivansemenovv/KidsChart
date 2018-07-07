@@ -9,5 +9,6 @@ namespace kidsChart2.Models
     {
         public IEnumerable<HistoryItem> HistoryItems { get; set; }
         public IEnumerable<Item> OneTimeItems { get; set; }
+        public IDictionary<Item, int> OneDayItemsGroups { get; set; }
     }
 }

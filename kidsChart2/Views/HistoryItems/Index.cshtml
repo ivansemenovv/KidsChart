@@ -25,27 +25,26 @@
     <tbody>
         @foreach (var item in Model.HistoryItems)
         {
-        <tr>
-            <td>
-                @if (!item.Item.IsGood)
-                {
-                    <img src="@item.Item.IconPath" width="50" />
-                }
-                else
-                {
-                    <img src="@item.Item.IconPath" width="70" />
+            <tr>
+                <td>
+                    @if (!item.Item.IsGood)
+                    {
+                        <img src="@item.Item.IconPath" width="50" />
+                    }
+                    else
+                    {
+                        <img src="@item.Item.IconPath" width="70" />
 
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.DueBy)
-            </td>
-            <td>
-                @if (!item.Item.IsOneTime)
-                {
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.DueBy)
+                </td>
+                <td>
+
                     @if (item.IsDone)
                     {
                         <a asp-action="Done" asp-route-id="@item.HistoryItemId">
@@ -58,19 +57,39 @@
                             <img src="~/images/sad.jpg" width="50" height="50">
                         </a>
                     }
-                }
-                else
-                {
-                    @if (item.Item.IsGood)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.HistoryItemId">...</a>
+                </td>
+            </tr>
+        }
+
+        @foreach (var itemGroup in Model.OneDayItemsGroups)
+        {
+            <tr>
+                <td>
+                    @if (!itemGroup.Key.IsGood)
+                    {
+                        <img src="@itemGroup.Key.IconPath" width="50" />
+                    }
+                    else
+                    {
+                        <img src="@itemGroup.Key.IconPath" width="70" />
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemGroup.Key.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => itemGroup.Value)
+                </td>
+                <td>
+                    @if (itemGroup.Key.IsGood)
                     {
                         <img src="~/images/thumbsUp.jpg" width="50">
                     }
-                }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.HistoryItemId">...</a>
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

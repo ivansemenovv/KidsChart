@@ -22,4 +22,9 @@ namespace kidsChart2.Models
         [DataType(DataType.ImageUrl)]
         public string IconPath { get; set; }
     }
+
+    public class HistoryItemGroup : HistoryItem
+    {
+        public int Count { get; set; }
+    }
 }
