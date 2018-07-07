@@ -45,7 +45,8 @@ namespace kidsChart2.Controllers
 
             var oneDayItemsGroups = _context.HistoryItems.Include("Item").
                 Where(dayItem => dayItem.DayItem >= DateTime.Today.AddDays(-7) && dayItem.Item.IsOneTime).
-                GroupBy(dayItem => dayItem.Item).Select(g => new { item = g.Key, count = g.Count() }).ToDictionary(k => k.item, i => i.count);
+                GroupBy(dayItem => dayItem.Item).Select(g => new { item = g.Key, count = g.Count() }).OrderByDescending(g => g.count).
+                ToDictionary(k => k.item, i => i.count);
 
             return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems, OneDayItemsGroups = oneDayItemsGroups });
         }

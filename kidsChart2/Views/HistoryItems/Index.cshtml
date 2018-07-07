@@ -9,7 +9,7 @@
 
 <table width="100%">
     <tr>
-        <td>
+        <td valign="top" align="left">
             <table class="table">
                 <tbody>
                     @foreach (var item in Model.HistoryItems)
@@ -58,8 +58,7 @@
         </td>
         <td width="50"><br/></td>
         <td valign="top" align="right">
-            За последние 7 дней
-            <table class="table">
+            <table class="tab-pane">
                 @foreach (var itemGroup in Model.OneDayItemsGroups)
                 {
                     <tr>
