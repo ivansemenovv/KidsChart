@@ -41,6 +41,8 @@ namespace kidsChart2.Models
         [Display(Name = "Дело на один раз")]
         public bool IsOneTime { get; set; }
 
+        public int Weight { get; set; }
+
         //public ICollection<HistoryItem> HistoryItems { get; set; }
     }
 }

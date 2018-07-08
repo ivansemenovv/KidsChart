@@ -23,8 +23,9 @@
                                 else
                                 {
                                     <img src="@item.Item.IconPath" width="70" />
-
                                 }
+
+                                <p>@item.Item.Weight <img src="~/images/star.png" width="30"/></p>
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Item.Name)
@@ -58,25 +59,52 @@
         </td>
         <td width="50"><br/></td>
         <td valign="top" align="right">
-            <table class="tab-pane">
+            <table class="table-condensed">
                 @foreach (var itemGroup in Model.OneDayItemsGroups)
                 {
-                    <tr>
-                        <td>
-                            @if (!itemGroup.Key.IsGood)
+                <tr>
+                    <td valign="middle">
+
+                        @if (@itemGroup.Key.Weight >= 0)
+                        {
+                            <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/greenStar.jpg" width="30" /></p>
+                        }
+                        else
+                        {
+                            <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/redStar.png" width="30" /></p>
+                        }
+                    </td>
+                    <td align="center">
+                        @if (!itemGroup.Key.IsGood)
+                        {
+                            <img src="@itemGroup.Key.IconPath" width="@(40 + @itemGroup.Value * 10)" />
+                        }
+                        else
+                        {
+                            <img src="@itemGroup.Key.IconPath" width="@(70 + @itemGroup.Value * 30)" />
+                        }
+                    </td>
+                </tr>
+                }
+                <tr>
+                    <td valign="middle">
+                        <p style="font-size:20pt; padding-top:30pt;">
+                            Всего:
+                        </p>
+                    </td>
+                    <td>
+                        <p style="font-size:20pt; padding-top:30pt;">
+                            @if (@Model.TotalStars >= 0)
                             {
-                                <img src="@itemGroup.Key.IconPath" width="@(40 + @itemGroup.Value * 10)" />
+                                @Model.TotalStars <img src="~/images/greenStar.jpg" width="30" />
                             }
                             else
                             {
-                                <img src="@itemGroup.Key.IconPath" width="@(70 + @itemGroup.Value * 30)" />
+                                @Model.TotalStars <img src="~/images/redStar.png" width="30" />
                             }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => itemGroup.Value)
-                        </td>
-                    </tr>
-                }
+                        </p>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>
@@ -86,17 +114,26 @@
 
 
 
-<table align="right" cellpadding="50" class="table">
+<table align="right" cellpadding="50">
     <tbody>
         <tr>
-            <td style="text-align:right">
-                @foreach (var oneTimeItem in Model.OneTimeItems)
+            @foreach (var oneTimeItem in Model.OneTimeItems)
+            {
+            <td style="text-align:center">
+
+                <a asp-action="AddOneTime" asp-route-id="@oneTimeItem.ItemId">
+                    <img src="@oneTimeItem.IconPath" width="30" style="margin:20px" />
+                </a>
+                @if (@oneTimeItem.Weight >= 0)
                 {
-                    <a asp-action="AddOneTime" asp-route-id="@oneTimeItem.ItemId">
-                        <img src="@oneTimeItem.IconPath" width="30" style="margin:20px" />
-                    </a>
+                    <div>@oneTimeItem.Weight <img src="~/images/greenStar.jpg" width="15" /></div>
                 }
-        </tr>
-        </td>
+                else
+                {
+                    <div>@oneTimeItem.Weight <img src="~/images/redStar.png" width="15" /></div>
+                }
+            </td>
+            }
+            </tr>
     </tbody>
 </table>

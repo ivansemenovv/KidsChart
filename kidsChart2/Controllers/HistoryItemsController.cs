@@ -45,10 +45,14 @@ namespace kidsChart2.Controllers
 
             var oneDayItemsGroups = _context.HistoryItems.Include("Item").
                 Where(dayItem => dayItem.DayItem >= DateTime.Today.AddDays(-7) && dayItem.Item.IsOneTime).
-                GroupBy(dayItem => dayItem.Item).Select(g => new { item = g.Key, count = g.Count() }).OrderByDescending(g => g.count).
+                GroupBy(dayItem => dayItem.Item).Select(g => new { item = g.Key, count = g.Count() }).OrderByDescending(g => g.item.Weight).
                 ToDictionary(k => k.item, i => i.count);
 
-            return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems, OneDayItemsGroups = oneDayItemsGroups });
+            var totalStars = _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)).Sum(item => item.Item.Weight);
+
+
+            return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems, OneDayItemsGroups = oneDayItemsGroups, TotalStars = totalStars });
         }
 
         // GET: HistoryItems/Details/5
