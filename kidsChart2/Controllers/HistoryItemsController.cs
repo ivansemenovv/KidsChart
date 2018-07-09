@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +26,7 @@ namespace kidsChart2.Controllers
         // GET: HistoryItems
         public async Task<IActionResult> Index()
         {
+            var pocket = _context.Pocket.First();
             var todayList = await _context.HistoryItems.Include("Item").Where(dayItem => dayItem.DayItem == DateTime.Today).OrderBy(HistoryItem => HistoryItem.Item.DueBy).ToListAsync();
             if(todayList.Count == 0)
             {
@@ -35,6 +35,9 @@ namespace kidsChart2.Controllers
                 {
                     _context.HistoryItems.Add(new HistoryItem() { Item = item, DayItem = DateTime.Today});
                 }
+
+                // save balance for the day
+                pocket.Balance += GetTotalCollectedStartsForLastDay();
                 await _context.SaveChangesAsync();
             }
             
@@ -44,15 +47,26 @@ namespace kidsChart2.Controllers
             var oneTimeItems = await _context.Items.Where(item => item.IsOneTime).ToListAsync();
 
             var oneDayItemsGroups = _context.HistoryItems.Include("Item").
-                Where(dayItem => dayItem.DayItem >= DateTime.Today.AddDays(-7) && dayItem.Item.IsOneTime).
+                Where(dayItem => dayItem.DayItem >= DateTime.Today && dayItem.Item.IsOneTime).
                 GroupBy(dayItem => dayItem.Item).Select(g => new { item = g.Key, count = g.Count() }).OrderByDescending(g => g.item.Weight).
                 ToDictionary(k => k.item, i => i.count);
 
-            var totalStars = _context.HistoryItems.Include("Item").
-                Where(dayItem => dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)).Sum(item => item.Item.Weight);
+            var todayStars = _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.DayItem == DateTime.Today && (dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)))
+                .Sum(item => item.Item.Weight);
 
+            return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems,
+                OneDayItemsGroups = oneDayItemsGroups,
+                BalanceStars = pocket.Balance,
+                TodayStars = todayStars
+            });
+        }
 
-            return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems, OneDayItemsGroups = oneDayItemsGroups, TotalStars = totalStars });
+        int GetTotalCollectedStartsForLastDay()
+        {
+            return _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.DayItem == DateTime.Today.AddDays(-1) && (dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)))
+                .Sum(item => item.Item.Weight);
         }
 
         // GET: HistoryItems/Details/5

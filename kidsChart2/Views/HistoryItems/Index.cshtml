@@ -62,50 +62,65 @@
             <table class="table-condensed">
                 @foreach (var itemGroup in Model.OneDayItemsGroups)
                 {
-                <tr>
-                    <td valign="middle">
+                    <tr>
+                        <td valign="middle">
 
-                        @if (@itemGroup.Key.Weight >= 0)
-                        {
-                            <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/greenStar.jpg" width="30" /></p>
-                        }
-                        else
-                        {
-                            <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/redStar.png" width="30" /></p>
-                        }
-                    </td>
-                    <td align="center">
-                        @if (!itemGroup.Key.IsGood)
-                        {
-                            <img src="@itemGroup.Key.IconPath" width="@(40 + @itemGroup.Value * 10)" />
-                        }
-                        else
-                        {
-                            <img src="@itemGroup.Key.IconPath" width="@(70 + @itemGroup.Value * 30)" />
-                        }
-                    </td>
-                </tr>
-                }
-                <tr>
-                    <td valign="middle">
-                        <p style="font-size:20pt; padding-top:30pt;">
-                            Всего:
-                        </p>
-                    </td>
-                    <td>
-                        <p style="font-size:20pt; padding-top:30pt;">
-                            @if (@Model.TotalStars >= 0)
+                            @if (@itemGroup.Key.Weight >= 0)
                             {
-                                @Model.TotalStars <img src="~/images/greenStar.jpg" width="30" />
+                                <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/greenStar.jpg" width="30" /></p>
                             }
                             else
                             {
-                                @Model.TotalStars <img src="~/images/redStar.png" width="30" />
+                                <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/redStar.png" width="30" /></p>
                             }
-                        </p>
-                    </td>
-                </tr>
+                        </td>
+                        <td align="center">
+                            @if (!itemGroup.Key.IsGood)
+                            {
+                                <img src="@itemGroup.Key.IconPath" width="@(40 + @itemGroup.Value * 10)" />
+                            }
+                            else
+                            {
+                                <img src="@itemGroup.Key.IconPath" width="@(70 + @itemGroup.Value * 30)" />
+                            }
+                        </td>
+                    </tr>
+                }
             </table>
+
+            <p style="font-size:10pt; padding-top:30pt;">
+                Накоплено:
+                @if (@Model.BalanceStars >= 0)
+                {
+                    @Model.BalanceStars <img src="~/images/greenStar.jpg" width="30" />
+                }
+                else
+                {
+                    @Model.BalanceStars <img src="~/images/redStar.png" width="30" />
+                }
+            </p>
+            <p style="font-size:10pt; padding-top:10pt;">
+                За сегодня:
+                @if (@Model.TodayStars >= 0)
+                {
+                    @Model.TodayStars <img src="~/images/greenStar.jpg" width="30" />
+                }
+                else
+                {
+                    @Model.TodayStars <img src="~/images/redStar.png" width="30" />
+                }
+            </p>
+            <p style="font-size:20pt; padding-top:10pt;">
+                Всего:
+                @if (@Model.TodayStars + @Model.BalanceStars >= 0)
+                {
+                    @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/greenStar.jpg" width="30" />
+                }
+                else
+                {
+                    @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/redStar.png" width="30" />
+                }
+            </p>
         </td>
     </tr>
 </table>
