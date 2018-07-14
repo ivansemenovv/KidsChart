@@ -56,6 +56,32 @@
 
                 </tbody>
             </table>
+
+            <!-- Routines history -->
+            <table class="roitines-history-table">
+                <tbody>
+                    @foreach (var routine in Model.RoutinesHistory)
+                    {
+                    <tr>
+                        <td>@routine.RoutineName</td>
+                        <td style="width:30px;"></td>
+                        @foreach (var historyDay in routine.History)
+                        {
+
+                            @if (historyDay)
+                            {
+                                <td class="green" style="width:10px;"></td>
+                            }
+                            else
+                            {
+                                <td class="red" style="width:10px;"></td>
+                            }
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
         </td>
         <td width="50"><br/></td>
         <td valign="top" align="right">
@@ -111,7 +137,7 @@
                 }
             </p>
             <p style="font-size:20pt; padding-top:10pt;">
-                Всего:
+                <img src="~/images/piggyBank.jpg" width="100" />
                 @if (@Model.TodayStars + @Model.BalanceStars >= 0)
                 {
                     @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/greenStar.jpg" width="30" />

@@ -35,3 +35,23 @@ body {
         display: none;
     }
 }
+
+.roitines-history-table {
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.green {
+    border:solid;
+    border-color:lightgray;
+    border-width: 1px;
+    background-color: lawngreen;
+}
+
+.red {
+    border: solid;
+    border-color: lightgray;
+    border-width: 1px;
+    background-color: crimson;
+}
+

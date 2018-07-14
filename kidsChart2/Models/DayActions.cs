@@ -12,5 +12,6 @@ namespace kidsChart2.Models
         public IDictionary<Item, int> OneDayItemsGroups { get; set; }
         public int BalanceStars { get; set; }
         public int TodayStars { get; set; }
+        public List<RoutineHistory> RoutinesHistory { get; set; }
     }
 }

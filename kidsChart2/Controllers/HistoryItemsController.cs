@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -55,10 +56,13 @@ namespace kidsChart2.Controllers
                 Where(dayItem => dayItem.DayItem == DateTime.Today && (dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)))
                 .Sum(item => item.Item.Weight);
 
+            var routinesHistory = GetRoutineHistory(50);
+
             return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems,
                 OneDayItemsGroups = oneDayItemsGroups,
                 BalanceStars = pocket.Balance,
-                TodayStars = todayStars
+                TodayStars = todayStars,
+                RoutinesHistory = routinesHistory
             });
         }
 
@@ -232,6 +236,35 @@ namespace kidsChart2.Controllers
             await _context.SaveChangesAsync();
             
             return RedirectToAction(nameof(Index));
+        }
+
+        private List<RoutineHistory> GetRoutineHistory(int numDays)
+        {
+            var historyRoutine = _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.DayItem < DateTime.Today && dayItem.DayItem >= DateTime.Today.AddDays(-1 * numDays) && dayItem.Item.IsDaily)
+                .OrderBy(dayItem => dayItem.Item.ItemId);
+
+            int routineId = -1;
+            RoutineHistory routine = new RoutineHistory();
+            var res = new List<RoutineHistory>();
+            foreach (var item in historyRoutine)
+            {
+                if(routineId != item.Item.ItemId)
+                {
+                    routine = new RoutineHistory()
+                    {
+                        RoutineId = item.Item.ItemId,
+                        RoutineName = item.Item.Name,
+                        History = new List<bool>()
+                    };
+
+                    res.Add(routine);
+                    routineId = routine.RoutineId;
+                }
+                routine.History.Add(item.IsDone);
+            }
+
+            return res;
         }
     }
 }
