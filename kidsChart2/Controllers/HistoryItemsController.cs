@@ -58,11 +58,14 @@ namespace kidsChart2.Controllers
 
             var routinesHistory = GetRoutineHistory(50);
 
+            var rewards = _context.Rewards.ToList();
+
             return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems,
                 OneDayItemsGroups = oneDayItemsGroups,
                 BalanceStars = pocket.Balance,
                 TodayStars = todayStars,
-                RoutinesHistory = routinesHistory
+                RoutinesHistory = routinesHistory,
+                Rewards = rewards
             });
         }
 
@@ -237,6 +240,32 @@ namespace kidsChart2.Controllers
             
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> UseReward(int id)
+        {
+            var reward = await _context.Rewards.FindAsync(id);
+            if (reward == null)
+            {
+                return NotFound();
+            }
+
+            var pocket = _context.Pocket.First();
+            //if (pocket.Balance >= reward.Cost)
+            {
+                var rewardHistoryItem = new RewardsHistory()
+                {
+                    Date = DateTime.Today,
+                    Reward = reward
+                };
+
+                _context.RewardsHistory.Add(rewardHistoryItem);
+                await _context.SaveChangesAsync();
+                pocket.Balance -= reward.Cost;
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         private List<RoutineHistory> GetRoutineHistory(int numDays)
         {

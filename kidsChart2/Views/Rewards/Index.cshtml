@@ -1,0 +1,47 @@
+﻿@model IEnumerable<kidsChart2.Models.Reward>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IconPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <img src="@item.IconPath" width="70" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cost)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.RewardId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.RewardId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.RewardId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -58,7 +58,7 @@
             </table>
 
             <!-- Routines history -->
-            <table class="roitines-history-table">
+            <table style="font-size: 10px;">
                 <tbody>
                     @foreach (var routine in Model.RoutinesHistory)
                     {
@@ -70,11 +70,11 @@
 
                             @if (historyDay)
                             {
-                                <td class="green" style="width:10px;"></td>
+                                <td style="width:10px; border:solid; border-color:lightgray; border-width: 1px; background-color: lawngreen;"></td>
                             }
                             else
                             {
-                                <td class="red" style="width:10px;"></td>
+                                <td style="width:10px; border: solid; border-color: lightgray; border-width: 1px; background-color: crimson;"></td>
                             }
                         }
                     </tr>
@@ -147,12 +147,22 @@
                     @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/redStar.png" width="30" />
                 }
             </p>
-        </td>
+            
+                
+            <div style="float:right; padding-top:50px;">
+                @foreach (var reward in Model.Rewards)
+                {
+                    <a asp-action="UseReward" asp-route-id="@reward.RewardId">
+                        <div style="float:left; text-align:center; padding:10px;">
+                            <img src="@reward.IconPath" height="50" />
+                            <p style="font-size:10pt; padding-top:10pt;">@reward.Cost <img src="~/images/greenStar.jpg" width="30" /></p>
+                        </div>
+                    </a>
+                }
+             </div>
+         </td>
     </tr>
 </table>
-
-
-
 
 
 <table align="right" cellpadding="50">

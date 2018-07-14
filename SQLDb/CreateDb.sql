@@ -11,6 +11,8 @@ GO
 DROP TABLE [dbo].[Pocket];
 DROP TABLE [dbo].[Items];
 DROP TABLE [dbo].[HistoryItems];
+DROP TABLE [dbo].[Rewards];
+DROP TABLE [dbo].[RewardsHistory];
 GO
 
 CREATE TABLE [dbo].[Items](
@@ -54,10 +56,39 @@ GO
 CREATE TABLE [dbo].[Pocket](
 	[PocketId] [int] IDENTITY(1,1) NOT NULL,
 	[Balance] [int] NOT NULL,
- CONSTRAINT [PK_PocketIdId] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_PocketId] PRIMARY KEY CLUSTERED 
 (
 	[PocketId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
+CREATE TABLE [dbo].[Rewards](
+	[RewardId] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](max) NULL,
+	[IconPath] [nvarchar](max) NULL,
+	[Cost] [int] NOT NULL,
+ CONSTRAINT [PK_RewardId] PRIMARY KEY CLUSTERED 
+(
+	[RewardId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[RewardsHistory](
+	[RewardHistoryId] [int] IDENTITY(1,1) NOT NULL,
+	[RewardId] [int],
+	[Date] [datetime2](7) NULL,
+ CONSTRAINT [PK_RewardHistoryId] PRIMARY KEY CLUSTERED 
+(
+	[RewardHistoryId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[RewardsHistory]  WITH CHECK ADD  CONSTRAINT [FK_RewardsHistory_Rewards] FOREIGN KEY([RewardId])
+REFERENCES [dbo].[Rewards] ([RewardId])
+GO
+
+ALTER TABLE [dbo].[RewardsHistory] CHECK CONSTRAINT [FK_RewardsHistory_Rewards]
+GO

@@ -18,5 +18,9 @@ namespace kidsChart2.Models
         public DbSet<kidsChart2.Models.Item> Items { get; set; }
         public DbSet<kidsChart2.Models.HistoryItem> HistoryItems { get; set; }
         public DbSet<kidsChart2.Models.Pocket> Pocket { get; set; }
+        public DbSet<kidsChart2.Models.Reward> Rewards { get; set; }
+
+        public DbSet<kidsChart2.Models.RewardsHistory> RewardsHistory { get; set; }
+
     }
 }
