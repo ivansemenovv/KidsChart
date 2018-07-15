@@ -9,7 +9,7 @@
 
 <table width="100%">
     <tr>
-        <td valign="top" align="left">
+        <td valign="top" align="left" style="width:50%">
             <table class="table">
                 <tbody>
                     @foreach (var item in Model.HistoryItems)
@@ -84,82 +84,88 @@
 
         </td>
         <td valign="top" align="right">
-            <table class="table-condensed">
-                @foreach (var itemGroup in Model.OneDayItemsGroups)
-                {
-                    <tr>
-                        <td valign="middle">
 
-                            @if (@itemGroup.Key.Weight >= 0)
-                            {
-                                <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/greenStar.jpg" width="30" /></p>
-                            }
-                            else
-                            {
-                                <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/redStar.png" width="30" /></p>
-                            }
-                        </td>
-                        <td align="center">
-                            @if (!itemGroup.Key.IsGood)
-                            {
-                                <img src="@itemGroup.Key.IconPath" width="@(40 + @itemGroup.Value * 10)" />
-                            }
-                            else
-                            {
-                                <img src="@itemGroup.Key.IconPath" width="@(70 + @itemGroup.Value * 30)" />
-                            }
-                        </td>
-                    </tr>
-                }
-            </table>
+            @foreach (var itemGroup in Model.OneDayItemsGroups)
+            {
+                <div style="float:left;">
+                    <table class="table-condensed">
+                        <tr>
+                            <td valign="middle">
 
-            <p style="font-size:10pt; padding-top:30pt;">
-                Накоплено:
-                @if (@Model.BalanceStars >= 0)
-                {
-                    @Model.BalanceStars <img src="~/images/greenStar.jpg" width="30" />
-                }
-                else
-                {
-                    @Model.BalanceStars <img src="~/images/redStar.png" width="30" />
-                }
-            </p>
-            <p style="font-size:10pt; padding-top:10pt;">
-                За сегодня:
-                @if (@Model.TodayStars >= 0)
-                {
-                    @Model.TodayStars <img src="~/images/greenStar.jpg" width="30" />
-                }
-                else
-                {
-                    @Model.TodayStars <img src="~/images/redStar.png" width="30" />
-                }
-            </p>
-            <p style="font-size:20pt; padding-top:10pt;">
-                <img src="~/images/piggyBank.jpg" width="100" />
-                @if (@Model.TodayStars + @Model.BalanceStars >= 0)
-                {
-                    @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/greenStar.jpg" width="30" />
-                }
-                else
-                {
-                    @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/redStar.png" width="30" />
-                }
-            </p>
-            
-                
-            <div style="float:right; padding-top:50px;">
-                @foreach (var reward in Model.Rewards)
-                {
-                    <a asp-action="UseReward" asp-route-id="@reward.RewardId">
-                        <div style="float:left; text-align:center; padding:10px;">
-                            <img src="@reward.IconPath" height="50" />
-                            <p style="font-size:10pt; padding-top:10pt;">@reward.Cost <img src="~/images/greenStar.jpg" width="30" /></p>
-                        </div>
-                    </a>
-                }
-             </div>
-         </td>
+                                @if (@itemGroup.Key.Weight >= 0)
+                                {
+                                    <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/greenStar.jpg" width="30" /></p>
+                                }
+                                else
+                                {
+                                    <p>@(@itemGroup.Key.Weight * @itemGroup.Value) <img src="~/images/redStar.png" width="30" /></p>
+                                }
+                            </td>
+                            <td align="center">
+                                @if (!itemGroup.Key.IsGood)
+                                {
+                                    <img src="@itemGroup.Key.IconPath" width="@(40 + @itemGroup.Value * 10)" />
+                                }
+                                else
+                                {
+                                    <img src="@itemGroup.Key.IconPath" width="@(70 + @itemGroup.Value * 30)" />
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+
+
+            @*<p style="font-size:10pt; padding-top:30pt;">
+            Накоплено:
+            @if (@Model.BalanceStars >= 0)
+            {
+                @Model.BalanceStars <img src="~/images/greenStar.jpg" width="30" />
+            }
+            else
+            {
+                @Model.BalanceStars <img src="~/images/redStar.png" width="30" />
+            }
+        </p>
+        <p style="font-size:10pt; padding-top:10pt;">
+            За сегодня:
+            @if (@Model.TodayStars >= 0)
+            {
+                @Model.TodayStars <img src="~/images/greenStar.jpg" width="30" />
+            }
+            else
+            {
+                @Model.TodayStars <img src="~/images/redStar.png" width="30" />
+            }
+        </p>*@
+
+                <div style="float:none">
+                <p style="font-size:20pt; padding-top:10pt;">
+                    <img src="~/images/piggyBank.jpg" width="100" />
+                    @if (@Model.TodayStars + @Model.BalanceStars >= 0)
+                    {
+                        @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/greenStar.jpg" width="30" /> <span style="font-size:10pt">@Model.BalanceStars/@Model.TodayStars</span>
+                    }
+                    else
+                    {
+                        @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/redStar.png" width="30" /><span style="font-size:10pt">@Model.BalanceStars/@Model.TodayStars</span>
+                    }
+                </p>
+                </div>
+
+                <div style="float:right; padding-top:50px;">
+                    @foreach (var reward in Model.Rewards)
+                    {
+                        <a asp-action="UseReward" asp-route-id="@reward.RewardId">
+                            <div style="float:left; text-align:center; padding:10px;">
+                                <img src="@reward.IconPath" height="50" />
+                                <p style="font-size:10pt; padding-top:10pt;">@reward.Cost <img src="~/images/greenStar.jpg" width="30" /></p>
+                            </div>
+                        </a>
+                    }
+                </div>
+        </td>
     </tr>
 </table>
 
