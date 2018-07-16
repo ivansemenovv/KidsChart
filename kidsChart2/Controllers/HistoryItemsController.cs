@@ -56,7 +56,7 @@ namespace kidsChart2.Controllers
                 Where(dayItem => dayItem.DayItem == DateTime.Today && (dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)))
                 .Sum(item => item.Item.Weight);
 
-            var routinesHistory = GetRoutineHistory(50);
+            var routinesHistory = GetRoutineHistory(10);
 
             var rewards = _context.Rewards.OrderBy(r => r.Cost).ToList();
 

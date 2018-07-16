@@ -1307,7 +1307,7 @@ small,
 mark,
 .mark {
   padding: .2em;
-  background-color: #fcf8e3;
+  
 }
 .text-left {
   text-align: left;
@@ -1372,40 +1372,40 @@ a.text-danger:focus {
   color: #843534;
 }
 .bg-primary {
-  color: #fff;
-  background-color: #337ab7;
+  
+  
 }
 a.bg-primary:hover,
 a.bg-primary:focus {
-  background-color: #286090;
+  
 }
 .bg-success {
-  background-color: #dff0d8;
+  
 }
 a.bg-success:hover,
 a.bg-success:focus {
-  background-color: #c1e2b3;
+  
 }
 .bg-info {
-  background-color: #d9edf7;
+  
 }
 a.bg-info:hover,
 a.bg-info:focus {
-  background-color: #afd9ee;
+ 
 }
 .bg-warning {
-  background-color: #fcf8e3;
+ 
 }
 a.bg-warning:hover,
 a.bg-warning:focus {
-  background-color: #f7ecb5;
+ 
 }
 .bg-danger {
-  background-color: #f2dede;
+ 
 }
 a.bg-danger:hover,
 a.bg-danger:focus {
-  background-color: #e4b9b9;
+ 
 }
 .page-header {
   padding-bottom: 9px;
@@ -4589,15 +4589,13 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #ccc;
 }
 .navbar-inverse {
-  background-color: #222;
-  border-color: #080808;
-}
+ }
+
 .navbar-inverse .navbar-brand {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-  color: #fff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {
@@ -4608,13 +4606,11 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-  color: #fff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #fff;
   background-color: #080808;
 }
 .navbar-inverse .navbar-nav > .disabled > a,

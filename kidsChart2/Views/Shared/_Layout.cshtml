@@ -17,9 +17,9 @@
     </environment>
 </head>
 <body>
-    <nav style="padding-bottom:30px;">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            @*<div class="navbar-header">
+            <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -28,16 +28,12 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">kidsChart2</a>
-            </div>*@
+            </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="HistoryItems" asp-action="Index">Текущий статус</a></li>
                     <li><a asp-area="" asp-controller="Items" asp-action="Index">Cписок дел</a></li>
                     <li><a asp-area="" asp-controller="Rewards" asp-action="Index">Награды</a></li>
-                    <li><a asp-area="" asp-controller="HistoryItems" asp-action="AddOneTime" asp-route-id="18"><img width="20" src="images\thumbsUp.jpg"></a></li>
-                    <li><a asp-area="" asp-controller="HistoryItems" asp-action="AddOneTime" asp-route-id="15"><img width="15" src="images\thumbsDown.jpg"></a></li>
-                    <li><a asp-area="" asp-controller="HistoryItems" asp-action="AddOneTime" asp-route-id="14"><img width="30" src="images\angel2.gif"></a></li>
-                    <li><a asp-area="" asp-controller="HistoryItems" asp-action="AddOneTime" asp-route-id="13"><img width="15" src="images\evil2.png"></a></li>
                 </ul>
             </div>
         </div>
