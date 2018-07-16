@@ -58,7 +58,7 @@ namespace kidsChart2.Controllers
 
             var routinesHistory = GetRoutineHistory(50);
 
-            var rewards = _context.Rewards.ToList();
+            var rewards = _context.Rewards.OrderBy(r => r.Cost).ToList();
 
             return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems,
                 OneDayItemsGroups = oneDayItemsGroups,
@@ -271,7 +271,7 @@ namespace kidsChart2.Controllers
         {
             var historyRoutine = _context.HistoryItems.Include("Item").
                 Where(dayItem => dayItem.DayItem < DateTime.Today && dayItem.DayItem >= DateTime.Today.AddDays(-1 * numDays) && dayItem.Item.IsDaily)
-                .OrderBy(dayItem => dayItem.Item.ItemId);
+                .OrderBy(dayItem => dayItem.Item.ItemId).ThenByDescending(dayItem => dayItem.DayItem );
 
             int routineId = -1;
             RoutineHistory routine = new RoutineHistory();
