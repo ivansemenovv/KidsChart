@@ -55,7 +55,7 @@ GO
 
 CREATE TABLE [dbo].[Pocket](
 	[PocketId] [int] IDENTITY(1,1) NOT NULL,
-	[Balance] [int] NOT NULL,
+	[Balance] [int] NOT NULL,0
  CONSTRAINT [PK_PocketId] PRIMARY KEY CLUSTERED 
 (
 	[PocketId] ASC
