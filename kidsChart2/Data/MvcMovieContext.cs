@@ -22,5 +22,7 @@ namespace kidsChart2.Models
 
         public DbSet<kidsChart2.Models.RewardsHistory> RewardsHistory { get; set; }
 
+        public DbSet<kidsChart2.Models.TravelItem> TravelItems { get; set; }
+
     }
 }

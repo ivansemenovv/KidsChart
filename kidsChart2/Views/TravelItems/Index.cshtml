@@ -1,0 +1,52 @@
+﻿@model IEnumerable<kidsChart2.Models.TravelItem>
+
+@{
+    ViewData["Title"] = "Список в дорогу";
+}
+
+<h2>Список в дорогу</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+
+                @if (item.IsDone)
+                {
+                <a asp-action="Done" asp-route-id="@item.TravelItemId">
+                    <img src="~/images/checkbox.png" width="20" />
+
+                    <strike style="color:black">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </strike>
+                </a>
+                }
+                else
+                {
+                    <a asp-action="Done" asp-route-id="@item.TravelItemId" style="color:black;">
+                        <img src="~/images/emptyCheckbox.png" width="20" />
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TravelItemId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TravelItemId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TravelItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

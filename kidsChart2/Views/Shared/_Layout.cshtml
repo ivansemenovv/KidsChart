@@ -27,6 +27,7 @@
                     <li><a asp-area="" asp-controller="HistoryItems" asp-action="Index">Текущий статус</a></li>
                     <li><a asp-area="" asp-controller="Items" asp-action="Index">Cписок дел</a></li>
                     <li><a asp-area="" asp-controller="Rewards" asp-action="Index">Награды</a></li>
+                    <li><a asp-area="" asp-controller="TravelItems" asp-action="Index">Список в дорогу</a></li>
                 </ul>
             </div>
         </div>
@@ -35,9 +36,6 @@
     @*<partial name="_CookieConsentPartial" />*@
 
     <div class="container body-content">
-        <div style="text-align:center">
-            <img src="~/images/break.jpg" height="150" />
-        </div>
         @RenderBody()
         @*<hr />*@
         @*<footer>
