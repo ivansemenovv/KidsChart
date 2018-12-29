@@ -43,6 +43,8 @@ namespace kidsChart2.Models
 
         public int Weight { get; set; }
 
+        public int NegativeWeight { get; set; }
+
         //public ICollection<HistoryItem> HistoryItems { get; set; }
     }
 }

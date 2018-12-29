@@ -35,13 +35,15 @@
 
     @*<partial name="_CookieConsentPartial" />*@
 
-    <div class="container body-content" style="background-image: url(../images/halloweenBack.jpg); background-repeat: no-repeat; background-position: bottom; background-size:contain">
+    @*<div class="container body-content" style="background-image: url(../images/me); background-repeat: no-repeat; background-position: bottom; background-size:contain">*@
+
         @RenderBody()
+        
         @*<hr />*@
         @*<footer>
             <p>&copy; 2018 - kidsChart2</p>
         </footer>*@
-    </div>
+    @*</div>*@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

@@ -71,9 +71,15 @@ namespace kidsChart2.Controllers
 
         int GetTotalCollectedStartsForLastDay()
         {
-            return _context.HistoryItems.Include("Item").
+            var positiveWeight = _context.HistoryItems.Include("Item").
                 Where(dayItem => dayItem.DayItem == DateTime.Today.AddDays(-1) && (dayItem.Item.IsOneTime || (!dayItem.Item.IsOneTime && dayItem.IsDone)))
                 .Sum(item => item.Item.Weight);
+
+            var negativeWeight = _context.HistoryItems.Include("Item").
+                Where(dayItem => dayItem.DayItem == DateTime.Today.AddDays(-1) && (!dayItem.Item.IsOneTime && !dayItem.IsDone))
+                .Sum(item => item.Item.NegativeWeight);
+
+            return negativeWeight + negativeWeight;
         }
 
         // GET: HistoryItems/Details/5
@@ -199,7 +205,7 @@ namespace kidsChart2.Controllers
         // GET: DayItems/Done/5
         public async Task<IActionResult> Done(int id)
         {
-            var dayItem = await _context.HistoryItems.FindAsync(id);
+            var dayItem = _context.HistoryItems.Include("Item").Where(di => di.HistoryItemId == id).First();
             if (dayItem == null)
             {
                 return NotFound();
@@ -223,6 +229,26 @@ namespace kidsChart2.Controllers
                     throw;
                 }
             }
+
+            if(dayItem.DayItem != DateTime.Today)
+            {
+                // this is edit of history 
+                // we need to adjust reward points
+                var pocket = _context.Pocket.First();
+                if (dayItem.IsDone)
+                {
+                    pocket.Balance -= dayItem.Item.NegativeWeight;
+                    pocket.Balance += dayItem.Item.Weight;
+                }
+                else
+                {
+                    pocket.Balance -= dayItem.Item.Weight;
+                    pocket.Balance += dayItem.Item.NegativeWeight;
+                }
+                _context.Update(pocket);
+                await _context.SaveChangesAsync();
+            }
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -284,13 +310,13 @@ namespace kidsChart2.Controllers
                     {
                         RoutineId = item.Item.ItemId,
                         RoutineName = item.Item.Name,
-                        History = new List<bool>()
+                        History = new List<HistoryItem>()
                     };
 
                     res.Add(routine);
                     routineId = routine.RoutineId;
                 }
-                routine.History.Add(item.IsDone);
+                routine.History.Add(item);
             }
 
             return res;

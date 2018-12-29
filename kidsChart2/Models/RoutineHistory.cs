@@ -9,6 +9,6 @@ namespace kidsChart2.Models
     {
         public int RoutineId { get; set; }
         public string RoutineName { get; set; }
-        public List<bool> History { get; set; }
+        public List<HistoryItem> History { get; set; }
     }
 }

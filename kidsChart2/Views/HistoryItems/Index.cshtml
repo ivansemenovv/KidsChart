@@ -4,15 +4,18 @@
     ViewData["Title"] = "Aleks's Chart";
 }
 <div style="text-align:left">
-    <img src="~/images/Happy-Halloween.gif" height="150" />
-    <img src="~/images/pumpkins.jpg" height="130" />
+    <img src="~/images/Transparent_Merry_Christmas_Decor_PNG_Clipart.png" height="100" style="margin-right:50px" />
+    <img src="~/images/Christmas-Ornament-05.jpg" height="100" />
 </div>
+@*<div style="text-align:left">
+    <img src="~/images/christmas-tree.png" height="80" />
+</div>*@
 
 <div style="float:left; padding-right:50px; padding-top:10px">
     <img src="~/images/alex.jpg" width="100" />
-    <p>
+    @*<p>
         <img src="~/images/piggyBank.jpg" width="100" />
-    </p>
+    </p>*@
     <p style="font-size:20pt; padding-top:10pt;">
 
         @if (@Model.TodayStars + @Model.BalanceStars >= 0)
@@ -33,39 +36,45 @@
                 <tbody>
                     @foreach (var item in Model.HistoryItems)
                     {
-                        <tr>
-                            <td>
-                                <div style="float:left">
-                                    <!--Edit link-->
-                                    <a asp-action="Edit" asp-route-id="@item.HistoryItemId">
-                                        <img src="@item.Item.IconPath" width="50" />
-                                    </a>
-                                </div>
-                                <div style="float:left;padding-left:10px;">
-                                    @Html.DisplayFor(modelItem => item.Item.Name)
-                                </div>
-                                <div style="float:right; padding-left:10px;">
-
-
-                                    <table style="font-size: 10px;">
+                    <tr>
+                        <td>
+                            <div style="float:left">
+                                <!--Edit link-->
+                                <a asp-action="Edit" asp-route-id="@item.HistoryItemId">
+                                    <img src="@item.Item.IconPath" width="50" />
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                @Html.DisplayFor(modelItem => item.Item.Name) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div>
+                                <div style="float:left; font-size: 10px;">@item.Item.Weight / @item.Item.NegativeWeight <img src="~/images/star.png" width="15" /></div>
+                                <div style="float:right">
+                                    <table style="font-size: 8px;">
                                         <tbody>
                                             @foreach (var routine in Model.RoutinesHistory)
                                             {
                                                 @if (routine.RoutineId == @item.Item.ItemId)
                                                 {
                                                     <tr>
-                                                        <td> @item.Item.Weight <img src="~/images/star.png" width="15" /></td>
-                                                        <td style="width:30px;"></td>
+                                                        @*<td> @item.Item.Weight <img src="~/images/star.png" width="15" /></td>*@
+                                                        @*<td style="width:30px;"></td>*@
                                                         @foreach (var historyDay in routine.History)
                                                         {
 
-                                                            @if (historyDay)
+                                                            @if (historyDay.IsDone)
                                                             {
-                                                                <td style="width:10px; border:solid; border-color:lightgray; border-width: 1px; background-color: lawngreen;"></td>
+                                                                <td style="width:10px; border:solid; border-color:lightgray; border-width: 1px; background-color: lawngreen;">
+                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10"></a>
+                                                                </td>
                                                             }
                                                             else
                                                             {
-                                                                <td style="width:10px; border: solid; border-color: lightgray; border-width: 1px; background-color: crimson;"></td>
+                                                                <td style="width:10px; border: solid; border-color: lightgray; border-width: 1px; background-color: crimson;">
+                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10"></a>
+                                                                </td>
                                                             }
                                                         }
                                                     </tr>
@@ -74,21 +83,23 @@
                                         </tbody>
                                     </table>
                                 </div>
-                            <td>
-                                @if (item.IsDone)
-                                {
-                                    <a asp-action="Done" asp-route-id="@item.HistoryItemId">
-                                        <img src="~/images/BlackGlass.jpg" width="50" height="50">
-                                    </a>
-                                }
-                                else
-                                {
-                                    <a asp-action="Done" asp-route-id="@item.HistoryItemId">
-                                        <img src="~/images/sad.jpg" width="50" height="50">
-                                    </a>
-                                }
-                            <td></td>
-                        </tr>
+                            </div>
+                        <td>
+                            @if (item.IsDone)
+                            {
+                                <a asp-action="Done" asp-route-id="@item.HistoryItemId">
+                                    <img src="~/images/BlackGlass.jpg" width="35" height="35">
+                                </a>
+                            }
+                            else
+                            {
+                                <a asp-action="Done" asp-route-id="@item.HistoryItemId">
+                                    <img src="~/images/sad.jpg" width="35" height="35">
+                                </a>
+                            }
+
+                        <td></td>
+                    </tr>
                     }
 
 
