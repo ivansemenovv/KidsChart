@@ -66,14 +66,14 @@
 
                                                             @if (historyDay.IsDone)
                                                             {
-                                                                <td style="width:10px; border:solid; border-color:lightgray; border-width: 1px; background-color: lawngreen;">
-                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10"></a>
+                                                                <td style="width:10px; border:solid; border-color:white; border-width: 1px;">
+                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10" src="~/images/greenSquare.png"></a>
                                                                 </td>
                                                             }
                                                             else
                                                             {
-                                                                <td style="width:10px; border: solid; border-color: lightgray; border-width: 1px; background-color: crimson;">
-                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10"></a>
+                                                                <td style="width:10px; border: solid; border-color: white; border-width: 1px;">
+                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10" src="~/images/redSquare.png"></a>
                                                                 </td>
                                                             }
                                                         }
