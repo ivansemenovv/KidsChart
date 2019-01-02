@@ -14,8 +14,8 @@
 <div style="float:left; padding-right:50px; padding-top:10px">
     <img src="~/images/alex.jpg" width="100" />
     @*<p>
-        <img src="~/images/piggyBank.jpg" width="100" />
-    </p>*@
+            <img src="~/images/piggyBank.jpg" width="100" />
+        </p>*@
     <p style="font-size:20pt; padding-top:10pt;">
 
         @if (@Model.TodayStars + @Model.BalanceStars >= 0)
@@ -27,6 +27,15 @@
             @(@Model.TodayStars + @Model.BalanceStars) <img src="~/images/redStar.png" width="30" /><span style="font-size:10pt">@Model.BalanceStars/@Model.TodayStars</span>
         }
     </p>
+
+    <div>Запреты</div>
+    @foreach (var item in Model.TimeRangeAssignments)
+    {
+    <div>
+        <img src="@item.Icon" width="100" />
+        <div style="text-align:center">@item.StartDate.Month/@item.StartDate.Day - @item.EndDate.Month/@item.EndDate.Day</div>
+    </div>
+    }
 </div>
 
 <table style="padding-top:20px;">
@@ -42,6 +51,7 @@
                                 <!--Edit link-->
                                 <a asp-action="Edit" asp-route-id="@item.HistoryItemId">
                                     <img src="@item.Item.IconPath" width="50" />
+                                    
                                 </a>
                             </div>
                         </td>

@@ -24,5 +24,7 @@ namespace kidsChart2.Models
 
         public DbSet<kidsChart2.Models.TravelItem> TravelItems { get; set; }
 
+        public DbSet<kidsChart2.Models.TimeRangeAssignment> TimeRangeAssignment { get; set; }
+
     }
 }

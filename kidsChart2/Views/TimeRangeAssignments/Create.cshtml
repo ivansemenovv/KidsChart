@@ -1,0 +1,66 @@
+﻿@model kidsChart2.Models.TimeRangeAssignmentViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<script type='text/javascript'>
+    function OnImageSelect(imagePath) {
+        var imagePathElement = document.getElementById("idElIcon");
+        if (imagePathElement != null) {
+            imagePathElement.value = imagePath;
+            alert("Image is selected: " + imagePathElement.value);
+        }
+        else {
+            alert("Element is null");
+        }
+    }
+</script>
+
+<h2>Create</h2>
+
+<h4>TimeRangeAssignment</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Icon" class="control-label"></label>
+                <select asp-for="Icon" asp-items="Model.Things" ></select>
+            </div>
+            @*<div class="form-group">
+                <input type="hidden" asp-for="Icon" id="idElIcon" />
+            </div>
+            <div class="form-group">
+                <img src="~/images/nintendo.jpg" height="60" onclick="OnImageSelect('~/images/nintendo.jpg')" />
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

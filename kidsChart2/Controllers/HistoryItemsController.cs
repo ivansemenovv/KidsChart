@@ -60,12 +60,15 @@ namespace kidsChart2.Controllers
 
             var rewards = _context.Rewards.OrderBy(r => r.Cost).ToList();
 
+            var timeRangeAssignments = _context.TimeRangeAssignment.Where(a => a.StartDate <= DateTime.Today && a.EndDate >= DateTime.Today).ToList();
+
             return View(new DayActions() {  HistoryItems = todayList, OneTimeItems = oneTimeItems,
                 OneDayItemsGroups = oneDayItemsGroups,
                 BalanceStars = pocket.Balance,
                 TodayStars = todayStars,
                 RoutinesHistory = routinesHistory,
-                Rewards = rewards
+                Rewards = rewards,
+                TimeRangeAssignments = timeRangeAssignments
             });
         }
 
@@ -79,7 +82,7 @@ namespace kidsChart2.Controllers
                 Where(dayItem => dayItem.DayItem == DateTime.Today.AddDays(-1) && (!dayItem.Item.IsOneTime && !dayItem.IsDone))
                 .Sum(item => item.Item.NegativeWeight);
 
-            return negativeWeight + negativeWeight;
+            return positiveWeight + negativeWeight;
         }
 
         // GET: HistoryItems/Details/5

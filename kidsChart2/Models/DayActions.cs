@@ -14,5 +14,6 @@ namespace kidsChart2.Models
         public int TodayStars { get; set; }
         public List<RoutineHistory> RoutinesHistory { get; set; }
         public List<Reward> Rewards { get; set; }
+        public List<TimeRangeAssignment> TimeRangeAssignments { get; set; }
     }
 }
