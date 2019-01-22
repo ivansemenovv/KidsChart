@@ -68,26 +68,32 @@
                                             {
                                                 @if (routine.RoutineId == @item.Item.ItemId)
                                                 {
-                                                    <tr>
-                                                        @*<td> @item.Item.Weight <img src="~/images/star.png" width="15" /></td>*@
-                                                        @*<td style="width:30px;"></td>*@
-                                                        @foreach (var historyDay in routine.History)
+                                            <tr>
+                                                @*<td> @item.Item.Weight <img src="~/images/star.png" width="15" /></td>*@
+                                                @*<td style="width:30px;"></td>*@
+                                                @foreach (var historyDay in routine.History)
+                                                {
+                                                    @if (historyDay.HistoryItemId != 0)
+                                                    {
+                                                        @if (historyDay.IsDone)
                                                         {
-
-                                                            @if (historyDay.IsDone)
-                                                            {
-                                                                <td style="width:10px; border:solid; border-color:white; border-width: 1px;">
-                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10" src="~/images/greenSquare.png"></a>
-                                                                </td>
-                                                            }
-                                                            else
-                                                            {
-                                                                <td style="width:10px; border: solid; border-color: white; border-width: 1px;">
-                                                                    <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10" src="~/images/redSquare.png"></a>
-                                                                </td>
-                                                            }
+                                                            <td style="width:10px; border:solid; border-color:white; border-width: 1px;">
+                                                                <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10" src="~/images/greenSquare.png"></a>
+                                                            </td>
                                                         }
-                                                    </tr>
+                                                        else
+                                                        {
+                                                            <td style="width:10px; border: solid; border-color: white; border-width: 1px;">
+                                                                <a asp-action="Done" asp-route-id="@historyDay.HistoryItemId"><img height="10" width="10" src="~/images/redSquare.png"></a>
+                                                            </td>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <td style="width:10px; border: solid; border-color: white; border-width: 1px;"><img height="10" width="10" src="~/images/freeSquare.png"></td>
+                                                    }
+                                                }
+                                            </tr>
                                                 }
                                             }
                                         </tbody>

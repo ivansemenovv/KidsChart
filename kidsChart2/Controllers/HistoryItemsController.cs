@@ -305,6 +305,7 @@ namespace kidsChart2.Controllers
             int routineId = -1;
             RoutineHistory routine = new RoutineHistory();
             var res = new List<RoutineHistory>();
+            
             foreach (var item in historyRoutine)
             {
                 if(routineId != item.Item.ItemId)
@@ -320,6 +321,33 @@ namespace kidsChart2.Controllers
                     routineId = routine.RoutineId;
                 }
                 routine.History.Add(item);
+            }
+
+            
+            foreach (var routineItem in res)
+            {
+                var newHistory = new List<HistoryItem>();
+                int i = routineItem.History.Count - 1;
+                for (DateTime currDate = DateTime.Today.AddDays(-1 * numDays); currDate < DateTime.Today; currDate = currDate.AddDays(1))
+                {
+                    if(i >=0 && routineItem.History[i].DayItem != currDate)
+                    {
+                        newHistory.Add(new HistoryItem() { DayItem = currDate });
+                    }
+                    else
+                    {
+                        if (i >= 0)
+                        {
+                            newHistory.Add(routineItem.History[i]);
+                            i--;
+                        }
+                        else
+                        {
+                            newHistory.Add(new HistoryItem() { DayItem = currDate });
+                        }
+                    }
+                }
+                routineItem.History = newHistory.Reverse<HistoryItem>().ToList();
             }
 
             return res;
